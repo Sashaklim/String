@@ -29,13 +29,15 @@ class MainActivity : AppCompatActivity() {
             val n = inputN.text.toString().toIntOrNull()
             val ch = inputChar.text.toString()
 
-            if (original.isNotEmpty() && n != null && ch.isNotEmpty()) {
-                val safeN = n.coerceAtMost(original.length)
-                val replaced = ch[0].toString().repeat(safeN) + original.substring(safeN)
-                resultText.text = "Результат: $replaced"
-            } else {
-                resultText.text = "Ошибка: заполните все поля"
+            if (original.isEmpty() || n == null || ch.isEmpty()) {
+                resultText.text = "Пожалуйста, заполните все поля корректно"
+                return@setOnClickListener
             }
+
+            val safeN = n.coerceAtMost(original.length) // чтобы не выйти за границы
+            val replaced = ch[0].toString().repeat(safeN) + original.substring(safeN)
+
+            resultText.text = "Результат: $replaced"
         }
     }
 }
