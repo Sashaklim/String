@@ -24,5 +24,18 @@ class MainActivity : AppCompatActivity() {
         replaceButton = findViewById(R.id.replaceButton)
         resultText = findViewById(R.id.resultText)
 
+        replaceButton.setOnClickListener {
+            val original = inputString.text.toString()
+            val n = inputN.text.toString().toIntOrNull()
+            val ch = inputChar.text.toString()
+
+            if (original.isNotEmpty() && n != null && ch.isNotEmpty()) {
+                val safeN = n.coerceAtMost(original.length)
+                val replaced = ch[0].toString().repeat(safeN) + original.substring(safeN)
+                resultText.text = "Результат: $replaced"
+            } else {
+                resultText.text = "Ошибка: заполните все поля"
+            }
+        }
     }
 }
